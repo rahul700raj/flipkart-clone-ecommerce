@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopKart - Your Online Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>ShopKart</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for products, brands and more...">
+                <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a>
+                <a href="#" onclick="showSection('products')"><i class="fas fa-box"></i> Products</a>
+                <a href="#" onclick="showCart()"><i class="fas fa-shopping-cart"></i> Cart <span id="cartCount" class="badge">0</span></a>
+                <a href="#" onclick="showSection('login')"><i class="fas fa-user"></i> Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <div class="hero-content">
+                    <h1 class="animate-fade-in">Mega Sale! Up to 80% Off</h1>
+                    <p>On Electronics, Fashion, Home & More</p>
+                    <button class="cta-btn" onclick="showSection('products')">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('electronics')">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Electronics</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('fashion')">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Fashion</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('home')">
+                    <i class="fas fa-couch"></i>
+                    <h3>Home & Living</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('books')">
+                    <i class="fas fa-book"></i>
+                    <h3>Books</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('sports')">
+                    <i class="fas fa-basketball-ball"></i>
+                    <h3>Sports</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('beauty')">
+                    <i class="fas fa-spa"></i>
+                    <h3>Beauty</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterByCategory('all')">All</button>
+                    <button class="filter-btn" onclick="filterByCategory('electronics')">Electronics</button>
+                    <button class="filter-btn" onclick="filterByCategory('fashion')">Fashion</button>
+                    <button class="filter-btn" onclick="filterByCategory('home')">Home</button>
+                </div>
+            </div>
+            <div id="productsGrid" class="products-grid"></div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Shopping Cart</h2>
+                <span class="close" onclick="closeCart()">&times;</span>
+            </div>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <h3>Total: ₹<span id="cartTotal">0</span></h3>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Section -->
+    <section id="login" class="login-section" style="display: none;">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-box">
+                    <h2>Login to ShopKart</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email or Phone</label>
+                            <input type="text" id="loginEmail" placeholder="Enter email or phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Login</button>
+                    </form>
+                    <p class="toggle-form">Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a></p>
+                </div>
+                <div class="signup-box" style="display: none;">
+                    <h2>Create Account</h2>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="signupName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="signupEmail" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="signupPhone" placeholder="Enter phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="signupPassword" placeholder="Create password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Sign Up</button>
+                    </form>
+                    <p class="toggle-form">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About ShopKart</h3>
+                    <p>Your trusted online shopping destination with millions of products at the best prices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> rm2778643@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +91 7004398297</li>
+                        <li><i class="fas fa-map-marker-alt"></i> India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShopKart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
